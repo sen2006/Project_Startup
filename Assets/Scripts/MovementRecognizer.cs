@@ -3,12 +3,18 @@ using UnityEngine;
 using PDollarGestureRecognizer;
 using System.IO;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
+using System;
 
 public class MovementRecognizer : MonoBehaviour
 {
     [SerializeField] float newPositionThreshholdDistance = 0.05f;
     [SerializeField] GameObject drawObject;
     [SerializeField] float recognitionThreshold;
+    /// <summary>
+    /// the timer the scripts waits untill it has detirmined that you have finished a gesture
+    /// </summary>
+    [SerializeField] float gestureFinishTimer = 1.5f;
     [SerializeField] bool creationMode = false;
     [SerializeField] bool creationIsLetter = false;
     /// <summary>
@@ -21,23 +27,47 @@ public class MovementRecognizer : MonoBehaviour
     public class UnityStringEvent : UnityEvent<string> { }
     [SerializeField] UnityStringEvent OnRecognized;
 
-    private List<Gesture> trainingSet = new List<Gesture>();
-
     private bool isButtonDown = false;
     private bool isMoving = false;
-    private List<Vector3> positionList = new List<Vector3>();
+    private bool gestureIsBusy = false;
+    private int gestureStroke = 0;
+    private float gestureTimer=0;
+    
     private Transform movementSource;
+
+    private List<Gesture> trainingSet = new List<Gesture>();
+    private List<Vector3> positionList = new List<Vector3>();
+    private List<Tuple<Vector3, int>> gesturePositions = new List<Tuple<Vector3, int>>();
+
+    private string persistantGestureFilePath;
+    private string localGestureFilePath;
 
     // Start is called before the first frame update
     public void Start()
     {
-        string[] otherGestureFiles = Directory.GetFiles(Application.persistentDataPath+ "/gestures/other/", " *.xml");
-        string[] letterGestureFiles = Directory.GetFiles(Application.persistentDataPath+ "/gestures/letters/", " *.xml");
+        persistantGestureFilePath = Application.persistentDataPath + "/gestures";
+        localGestureFilePath = Application.streamingAssetsPath + "/gestures";
+
+        Debug.Log("Loading Gesture Trainingset from (" + persistantGestureFilePath + ") and (" + localGestureFilePath +")");
+
+
+        string[] otherGestureFiles = Directory.GetFiles(persistantGestureFilePath +"/other/", "*.xml");
+        string[] localOtherGestureFiles = Directory.GetFiles(localGestureFilePath +"/other/", "*.xml");
+        string[] letterGestureFiles = Directory.GetFiles(persistantGestureFilePath +"/letters/", "*.xml");
+        string[] localLetterGestureFiles = Directory.GetFiles(localGestureFilePath +"/letters/", "*.xml");
         foreach (var item in otherGestureFiles)
         {
             trainingSet.Add(GestureIO.ReadGestureFromFile(item));
         }
+        foreach (var item in localOtherGestureFiles)
+        {
+            trainingSet.Add(GestureIO.ReadGestureFromFile(item));
+        }
         foreach (var item in letterGestureFiles)
+        {
+            trainingSet.Add(GestureIO.ReadGestureFromFile(item));
+        }
+        foreach (var item in localLetterGestureFiles)
         {
             trainingSet.Add(GestureIO.ReadGestureFromFile(item));
         }
@@ -51,6 +81,10 @@ public class MovementRecognizer : MonoBehaviour
         if (!isMoving && isButtonDown)
         {
             StartMovement();
+            if (!gestureIsBusy)
+            {
+                StartGesture();
+            }
         }
         // stop the movement
         else if (isMoving && !isButtonDown)
@@ -61,6 +95,10 @@ public class MovementRecognizer : MonoBehaviour
         else if (isMoving && isButtonDown)
         {
             UpdateMovement();
+        }
+        else if (gestureIsBusy && !isMoving && !isButtonDown)
+        {
+            UpdateGestureTimer();
         }
     }
 
@@ -79,6 +117,61 @@ public class MovementRecognizer : MonoBehaviour
         movementSource = null;
     }
 
+    void StartGesture()
+    {
+        Debug.Log("Start Gesture");
+        gestureIsBusy = true;
+        gestureStroke = 0;
+        gesturePositions.Clear();
+    }
+
+    void EndGesture()
+    {
+        Debug.Log("End Gesture");
+        gestureIsBusy = false;
+        
+        Point[] pointArray = new Point[gesturePositions.Count];
+
+        for (int i = 0; i < pointArray.Length; i++) 
+        {
+            Vector3 position = gesturePositions[i].Item1;
+            Vector2 screenPosition = Camera.main.WorldToScreenPoint(new Vector3(position.x, position.y, position.z));
+            pointArray[i] = new Point(screenPosition.x, screenPosition.y, gesturePositions[i].Item2);
+        }        
+        
+        Gesture newGesture = new Gesture(pointArray);
+
+        // add new gesture to trainingSet
+        if (creationMode)
+        {
+            newGesture.Name = creationIsLetter ? newGestureName.ToCharArray()[0].ToString() : newGestureName;
+            trainingSet.Add(newGesture);
+
+            string fileName = persistantGestureFilePath +"/"+ (creationIsLetter ? "letters/" : "other/") + newGesture.Name + ".xml";
+            GestureIO.WriteGesture(pointArray, newGestureName, fileName);
+        }
+        // recognize gesture
+        else
+        {
+            Result result = PointCloudRecognizer.Classify(newGesture, trainingSet.ToArray());
+            Debug.Log("found gesture: "+result.GestureClass + " - " + result.Score);
+            if (result.Score > recognitionThreshold)
+            {
+                OnRecognized.Invoke(result.GestureClass);
+            }
+        }
+    }
+
+    void UpdateGestureTimer()
+    {
+        //Debug.Log("Updating Gesture Timer");
+        gestureTimer -= Time.deltaTime;
+
+        if (gestureTimer <= 0)
+        {
+            EndGesture();
+        }
+    }
     void StartMovement()
     {
         Debug.Log("Start Movement");
@@ -91,41 +184,18 @@ public class MovementRecognizer : MonoBehaviour
         Debug.Log("End Movement");
         isMoving = false;
 
-        // create gesture from possition list
-        Point[] pointArray = new Point[positionList.Count];
-
-        for (int i = 0; i < positionList.Count; i++)
+        foreach (Vector3 position in positionList)
         {
-            Vector2 screenPosition = Camera.main.WorldToScreenPoint(positionList[i]);
-            pointArray[i] = new Point(screenPosition.x, screenPosition.y,0);
+            gesturePositions.Add(new Tuple<Vector3,int>(position, gestureStroke));
         }
 
-        Gesture newGesture = new Gesture(pointArray);
-
-        // add new gesture to trainingSet
-        if (creationMode)
-        {
-            newGesture.Name = creationIsLetter ? newGestureName.ToCharArray()[0].ToString() : newGestureName;
-            trainingSet.Add(newGesture);
-
-            string fileName = Application.persistentDataPath + "/gestures/"+ (creationIsLetter? "letters/" : "other/") + newGesture.Name + ".xml";
-            GestureIO.WriteGesture(pointArray,newGestureName,fileName);
-        }
-        // recognize gesture
-        else
-        {
-            Result result = PointCloudRecognizer.Classify(newGesture, trainingSet.ToArray());
-            Debug.Log(result.GestureClass + " - " + result.Score);
-            if (result.Score > recognitionThreshold)
-            {
-                OnRecognized.Invoke(result.GestureClass);
-            }
-        }
+        gestureStroke++;
+        gestureTimer = gestureFinishTimer;
     }
 
     void UpdateMovement()
     {
-        Debug.Log("Update Movement");
+        //Debug.Log("Update Movement");
         if (movementSource != null)
         {
             if (positionList.Count > 0)
