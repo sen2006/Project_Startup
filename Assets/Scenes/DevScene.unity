@@ -28916,9 +28916,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d9e04ce5d8a4264f87caa8640cf7aa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newPositionThreshholdDistance: 0.05
+  newPositionThreshholdDistance: 0.01
   drawObject: {fileID: 990184822919202667, guid: 3d079e6506aa10d4093148ca2be222ef, type: 3}
-  recognitionThreshold: 0
+  recognitionThreshold: 0.8
+  gestureFinishTimer: 2
   creationMode: 0
   creationIsLetter: 0
   newGestureName: 
