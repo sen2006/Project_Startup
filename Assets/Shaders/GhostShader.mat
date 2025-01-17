@@ -43,8 +43,8 @@ Material:
     - _QueueOffset: 0
     m_Colors:
     - _FresnalColor: {r: 0, g: 1.0180212, b: 8.474191, a: 1}
-    - _InteriorColor: {r: 0, g: 11.313708, b: 11.313708, a: 1}
-    - _InteriotPosition: {r: 0, g: 0, b: -0.46, a: 0}
+    - _InteriorColor: {r: 0, g: 8.322614, b: 11.313707, a: 1}
+    - _InteriotPosition: {r: 0, g: 0, b: -0.03, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &4935398341253206959
 MonoBehaviour:
