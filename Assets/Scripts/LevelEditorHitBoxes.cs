@@ -39,7 +39,7 @@ public class LevelEditorHitBoxes : MonoBehaviour
 
         for (int i = 0; i < randomBoxAmount; i++)
         {
-            spawnQueue.Add(UnityEngine.Random.Range(0, 27));
+            spawnQueue.Add(UnityEngine.Random.Range(0, 26));
         }
 
         for (int i = 0; i < obstacleAmount; i++)
