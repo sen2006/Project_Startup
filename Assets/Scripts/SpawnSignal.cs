@@ -6,8 +6,6 @@ public class SpawnSignal : MonoBehaviour
 {
     public float spawnerAmount = 0;
 
-    public GameObject spawnPrefab;
-
     private float spawnTimer = 3;
     private float spawnTimeLeft;
 
