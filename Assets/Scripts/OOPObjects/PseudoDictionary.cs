@@ -11,8 +11,9 @@ public class PseudoDictionary<T, U>
     [SerializeField] List<PseudoKeyValuePair<T, U>> entries;
     private Dictionary<T, U> actualDictionary = new();
 
-    // COUNT
-
+    /// <summary>
+    /// gets the total coult of entries in the dictionary
+    /// </summary>
     public int Count
     {
         get
@@ -87,9 +88,14 @@ public class PseudoDictionary<T, U>
 
     public U TryGetValue(T key)
     {
-        actualDictionary = FromPseudoDictionaryToActualDictionary();
-        actualDictionary.TryGetValue(key, out U value);
+        TryGetValue(key, out U value);
         return value;
+    }
+
+    public bool TryGetValue(T key, out U value)
+    {
+        actualDictionary = FromPseudoDictionaryToActualDictionary();
+        return actualDictionary.TryGetValue(key, out value);
     }
 
     public bool ContainsKey(T key)
@@ -98,8 +104,25 @@ public class PseudoDictionary<T, U>
         return actualDictionary.ContainsKey(key);
     }
 
-    public U[] GetValueArray() { return this.FromPseudoDictionaryToActualDictionary().Values.ToArray(); }
-    public T[] GetKeyArray() { return this.FromPseudoDictionaryToActualDictionary().Keys.ToArray(); }
+    public U[] GetValueArray()
+    {
+        return this.FromPseudoDictionaryToActualDictionary().Values.ToArray();
+    }
+    public T[] GetKeyArray()
+    {
+        return this.FromPseudoDictionaryToActualDictionary().Keys.ToArray();
+    }
+
+    public U[] Values
+    {
+        get
+        { return GetValueArray(); }
+    }
+
+    public T[] Keys
+    {
+        get { return GetKeyArray(); }
+    }
 
 }
 
