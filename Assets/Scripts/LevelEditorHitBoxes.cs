@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LevelEditorHitBoxes : MonoBehaviour
@@ -8,6 +9,11 @@ public class LevelEditorHitBoxes : MonoBehaviour
     [SerializeField] private int randomBoxAmount;
     [SerializeField] private int obstacleAmount;
     [SerializeField] private string targetWord = "test";
+    [SerializeField] private PseudoDictionary<string, string> questionAnswer = new PseudoDictionary<string, string>();
+    [SerializeField] private PseudoDictionary<string, bool> wordSpawnList = new PseudoDictionary<string, bool>();
+    [SerializeField] private List<string> wrongWords = new List<string>();
+
+    private int questionIndex = 0;
 
     public float boxMoveSpeed;
     public float boxSpawnDelay;
@@ -15,9 +21,9 @@ public class LevelEditorHitBoxes : MonoBehaviour
     public GameObject letterBox;
     public GameObject obstacle;
 
-    public List<int> spawnQueue = new List<int>();
+    public readonly List<int> spawnQueue = new List<int>();
 
-    public string alphabet = "abcdefghijklmnopqrstuvwxyz";
+    public static readonly string alphabet = "abcdefghijklmnopqrstuvwxyz";
 
     private SpawnSignal spawnSignal;
 
@@ -27,7 +33,7 @@ public class LevelEditorHitBoxes : MonoBehaviour
 
         for (int i = 0; i < targetWord.Length; i++)
         {
-            for(int j = 0; j < alphabet.Length; j++)
+            for (int j = 0; j < alphabet.Length; j++)
             {
                 if (targetWord[i] == alphabet[j])
                 {
@@ -45,6 +51,32 @@ public class LevelEditorHitBoxes : MonoBehaviour
         for (int i = 0; i < obstacleAmount; i++)
         {
             spawnQueue.Add(26);
+        }
+        //--------------------------------------------------------
+        NextQuestion();
+
+    }
+
+    private void NextQuestion()
+    {
+        wordSpawnList.Clear();
+        if (questionIndex >= questionAnswer.Count) return;
+        string answer = questionAnswer.Values[questionIndex++];
+        wordSpawnList.Add(answer, true);
+        SaturateWrongAnswers(answer);
+    }
+
+    private void SaturateWrongAnswers(string correctAnswer)
+    {
+        List<string> words = new List<string>(wrongWords);
+        words.Remove(correctAnswer);
+
+        for (int i = 0; i < obstacleAmount; i++)
+        {
+            if (words.Count == 0) break;
+            int wordIndex = UnityEngine.Random.Range(0, wrongWords.Count);
+            wordSpawnList.Add(wrongWords[wordIndex], false);
+            words.RemoveAt(wordIndex);
         }
     }
 
