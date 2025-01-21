@@ -10,10 +10,6 @@ public class SpawnBlock : MonoBehaviour
 {
     [SerializeField] float spawnerNumber = 0;
 
-    private float moveSpeed = 0;
-
-    private string alphabet = "abcdefghijklmnopqrstuvwxyz";
-
     private Transform tf;
     private SpawnSignal spawnSignal;
     private LevelEditorHitBoxes levelEdit;
@@ -54,7 +50,7 @@ public class SpawnBlock : MonoBehaviour
                     TextMeshPro text = newBlock.GetNamedChild("Letter").GetComponent<TextMeshPro>();
 
                     newBlock.transform.position = new Vector3(tf.position.x, tf.position.y, tf.position.z);
-                    text.text = levelEdit.alphabet[spawnIndex].ToString();
+                    text.text = LevelEditorHitBoxes.alphabet[spawnIndex].ToString();
                     rb.velocity = new Vector3(0, 0, -levelEdit.boxMoveSpeed);
 
                     spawnSignal.spawnSignalGiven = false;

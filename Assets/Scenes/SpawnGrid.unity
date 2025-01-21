@@ -416,7 +416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -773,9 +773,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_Colliders: []
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -870,33 +867,6 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
-  m_OnFirstHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnLastHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectCanceled:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnActivate:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnDeactivate:
-    m_PersistentCalls:
-      m_Calls: []
   m_AttachTransform: {fileID: 1591588034}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0
@@ -943,10 +913,10 @@ MonoBehaviour:
   m_ThrowAngularVelocityScale: 1
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
-  m_AttachPointCompatibilityMode: 0
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+  m_FarAttachMode: 0
 --- !u!54 &1522256778
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1320,9 +1290,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_Colliders: []
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 2147483648
   m_DistanceCalculationMode: 1
@@ -1381,33 +1348,6 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
-  m_OnFirstHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnLastHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectCanceled:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnActivate:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnDeactivate:
-    m_PersistentCalls:
-      m_Calls: []
   m_TeleportationProvider: {fileID: 0}
   m_MatchOrientation: 0
   m_MatchDirectionalInput: 1
@@ -1963,6 +1903,94 @@ PrefabInstance:
     - target: {fileID: 751447838702878764, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: wrongWords.Array.size
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: wrongWords.Array.data[0]
+      value: banaan
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: wrongWords.Array.data[1]
+      value: appel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: wrongWords.Array.data[2]
+      value: baan
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: wrongWords.Array.data[3]
+      value: huis
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: wrongWords.Array.data[4]
+      value: peer
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: wrongWords.Array.data[5]
+      value: druif
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: wrongWords.Array.data[6]
+      value: mango
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: wrongWords.Array.data[7]
+      value: kiwi
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: wrongWords.Array.data[8]
+      value: sinaasappel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: wrongWords.Array.data[9]
+      value: aardappel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: wrongWords.Array.data[10]
+      value: hamburger
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: wrongWords.Array.data[11]
+      value: kind
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: wrongWords.Array.data[12]
+      value: fout
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: wrongWords.Array.data[13]
+      value: goed
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: wrongWords.Array.data[14]
+      value: grijs
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: wrongWords.Array.data[15]
+      value: grijs
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: questionAnswer.entries.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: questionAnswer.entries.Array.data[0].key
+      value: banana
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: questionAnswer.entries.Array.data[1].key
+      value: apple
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: questionAnswer.entries.Array.data[0].value
+      value: banaan
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: questionAnswer.entries.Array.data[1].value
+      value: appel
       objectReference: {fileID: 0}
     - target: {fileID: 6702309722862702299, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
       propertyPath: m_Name
