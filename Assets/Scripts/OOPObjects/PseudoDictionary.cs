@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -96,6 +97,10 @@ public class PseudoDictionary<T, U>
         actualDictionary = FromPseudoDictionaryToActualDictionary();
         return actualDictionary.ContainsKey(key);
     }
+
+    public U[] GetValueArray() { return this.FromPseudoDictionaryToActualDictionary().Values.ToArray(); }
+    public T[] GetKeyArray() { return this.FromPseudoDictionaryToActualDictionary().Keys.ToArray(); }
+
 }
 
 [System.Serializable]
