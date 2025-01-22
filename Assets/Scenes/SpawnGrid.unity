@@ -752,6 +752,7 @@ GameObject:
   - component: {fileID: 1522256779}
   - component: {fileID: 1522256778}
   - component: {fileID: 1522256777}
+  - component: {fileID: 1522256783}
   m_Layer: 0
   m_Name: Wand
   m_TagString: Untagged
@@ -825,36 +826,9 @@ MonoBehaviour:
   m_Activated:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MovementRecognizer, Assembly-CSharp
-        m_MethodName: SetButtonDown
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MovementRecognizer, Assembly-CSharp
-        m_MethodName: SetMovementSource
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1270788123}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  m_Deactivated:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MovementRecognizer, Assembly-CSharp
-        m_MethodName: RemoveMovementSource
+      - m_Target: {fileID: 1522256783}
+        m_TargetAssemblyTypeName: WandFireballSpawn, Assembly-CSharp
+        m_MethodName: onTrigger
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -862,8 +836,11 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
@@ -1034,6 +1011,20 @@ Transform:
   - {fileID: 1591588034}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1522256783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1522256776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 598072b67f6b10d43b88d47af0ef4a68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireballPrefab: {fileID: 3986362474707368415, guid: 7893b4bb66c776a44a20736794380bff, type: 3}
+  spawnLocation: {fileID: 1270788123}
 --- !u!1 &1591588033
 GameObject:
   m_ObjectHideFlags: 0

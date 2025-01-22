@@ -25,6 +25,9 @@ public class PseudoDictionary<T, U>
 
     // INDEXER
 
+    /// <summary>
+    /// gets the value that belongs to a key
+    /// </summary>
     public U this[T index]
     {
         get
@@ -35,8 +38,10 @@ public class PseudoDictionary<T, U>
     }
 
     // FROM DICTIONARY TO PSEUDO
-
-    public List<PseudoKeyValuePair<T, U>> FromActualDictionaryToPseudoDictionary(Dictionary<T, U> actualDictionary)
+    /// <summary>
+    /// converts from a C# Dictionary to a PseudoDictionary
+    /// </summary>
+    public static List<PseudoKeyValuePair<T, U>> FromActualDictionaryToPseudoDictionary(Dictionary<T, U> actualDictionary)
     {
         List<PseudoKeyValuePair<T, U>> pseudoDictionary = new();
 
@@ -50,8 +55,10 @@ public class PseudoDictionary<T, U>
         => FromActualDictionaryToPseudoDictionary(actualDictionary);
 
     // FROM PSEUDO TO DICTIONARY
-
-    public Dictionary<T, U> FromPseudoDictionaryToActualDictionary(List<PseudoKeyValuePair<T, U>> pseudoDictionary)
+    /// <summary>
+    /// converts from a PseudoDictionary to a C# Dictionary
+    /// </summary>
+    public static Dictionary<T, U> FromPseudoDictionaryToActualDictionary(List<PseudoKeyValuePair<T, U>> pseudoDictionary)
     {
         Dictionary<T, U> dictionary = new();
 
@@ -61,11 +68,18 @@ public class PseudoDictionary<T, U>
         return dictionary;
     }
 
+    /// <summary>
+    /// converts from a PseudoDictionary to a C# Dictionary
+    /// </summary>
     public Dictionary<T, U> FromPseudoDictionaryToActualDictionary()
-        => FromPseudoDictionaryToActualDictionary(entries);
+    {
+        return FromPseudoDictionaryToActualDictionary(entries);
+    }
 
     // OPERATIONS
-
+    /// <summary>
+    /// adds a new entry
+    /// </summary>
     public void Add(T key, U value)
     {
         actualDictionary = FromPseudoDictionaryToActualDictionary();
@@ -73,6 +87,9 @@ public class PseudoDictionary<T, U>
         entries = FromActualDictionaryToPseudoDictionary();
     }
 
+    /// <summary>
+    /// removes an entry
+    /// </summary>
     public void Remove(T key)
     {
         actualDictionary = FromPseudoDictionaryToActualDictionary();
@@ -106,11 +123,13 @@ public class PseudoDictionary<T, U>
 
     public U[] GetValueArray()
     {
-        return this.FromPseudoDictionaryToActualDictionary().Values.ToArray();
+        actualDictionary = FromPseudoDictionaryToActualDictionary();
+        return actualDictionary.Values.ToArray();
     }
     public T[] GetKeyArray()
     {
-        return this.FromPseudoDictionaryToActualDictionary().Keys.ToArray();
+        actualDictionary = FromPseudoDictionaryToActualDictionary();
+        return actualDictionary.Keys.ToArray();
     }
 
     public U[] Values
