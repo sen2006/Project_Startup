@@ -1905,6 +1905,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
+      propertyPath: boxSpawnDelay
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693751804042887447, guid: 915eed5acbe9a1b448f1725605ff7c37, type: 3}
       propertyPath: wrongWords.Array.size
       value: 15
       objectReference: {fileID: 0}

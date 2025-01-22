@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class LevelEditorHitBoxes : MonoBehaviour
@@ -70,13 +71,20 @@ public class LevelEditorHitBoxes : MonoBehaviour
     {
         List<string> words = new List<string>(wrongWords);
         words.Remove(correctAnswer);
-
-        for (int i = 0; i < obstacleAmount; i++)
+        bool done=false;
+        int spawnCount = 0;
+        while (!done)//(int i = 0; i < obstacleAmount; i++)
         {
             if (words.Count == 0) break;
             int wordIndex = UnityEngine.Random.Range(0, wrongWords.Count);
-            wordSpawnList.Add(wrongWords[wordIndex], false);
-            words.RemoveAt(wordIndex);
+            string wordToAdd = wrongWords[wordIndex];
+            if (!wordSpawnList.ContainsKey(wordToAdd))
+            {
+                wordSpawnList.Add(wordToAdd, false);
+                words.RemoveAt(wordIndex);
+                spawnCount++;
+            }
+            if (spawnCount >= obstacleAmount) done = true;
         }
     }
 
@@ -90,5 +98,17 @@ public class LevelEditorHitBoxes : MonoBehaviour
             spawnSignal.spawnsLeft = false;
         }
         return returnNumber;
+    }
+
+    public Tuple<string, bool> NewWordSpawn()
+    {
+        if (wordSpawnList.Count == 0)
+        {
+            return null;
+        }
+        int pickNumber = UnityEngine.Random.Range(0, wordSpawnList.Count);
+        Tuple<string, bool> toReturn = new Tuple<string, bool> (wordSpawnList.Keys[pickNumber], wordSpawnList.Values[pickNumber]);
+        wordSpawnList.Remove(wordSpawnList.Keys[pickNumber]);
+        return toReturn;
     }
 }
