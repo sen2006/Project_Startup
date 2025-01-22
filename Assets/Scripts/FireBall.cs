@@ -19,20 +19,22 @@ public class FireBall : MonoBehaviour
             hitEvent(false);
             DestroyObjects(other.gameObject);
         }
+    }
 
-        // other option
-        // if (other.CompareTag("RightAnswer") || other.CompareTag("WrongAnswer"))
-        // {
-        //  hitEvent(other.CompareTag("RightAnswer"));
-        //  DestroyObjects(other.gameObject);
-        // }
+    // other option
+    // if (other.CompareTag("RightAnswer") || other.CompareTag("WrongAnswer"))
+    // {
+    //  hitEvent(other.CompareTag("RightAnswer"));
+    //  DestroyObjects(other.gameObject);
+    // }
 
 
 
-        private void DestroyObjects(GameObject other)
+    private void DestroyObjects(GameObject other)
     {
         Destroy(other);
         Destroy(gameObject);
     }
 
 }
+
