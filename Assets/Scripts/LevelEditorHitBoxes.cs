@@ -76,7 +76,7 @@ public class LevelEditorHitBoxes : MonoBehaviour
         while (!done)//(int i = 0; i < obstacleAmount; i++)
         {
             if (words.Count == 0) break;
-            int wordIndex = UnityEngine.Random.Range(0, wrongWords.Count);
+            int wordIndex = UnityEngine.Random.Range(0, words.Count);
             string wordToAdd = wrongWords[wordIndex];
             if (!wordSpawnList.ContainsKey(wordToAdd))
             {
