@@ -22,9 +22,9 @@ public class MovementRecognizer : MonoBehaviour
     /// </summary>
     [SerializeField] string newGestureName = "";
 
-    [Serializable]
-    public class UnityStringEvent : UnityEvent<string> { }
-    [SerializeField] UnityStringEvent OnRecognized;
+
+    public delegate void GestureOutput(string gesture);
+    public event GestureOutput gestureOutput;
 
     private bool isButtonDown = false;
     private bool isMoving = false;
@@ -169,7 +169,7 @@ public class MovementRecognizer : MonoBehaviour
             Debug.Log("found gesture: " + result.GestureClass + " - " + result.Score);
             if (result.Score > recognitionThreshold)
             {
-                OnRecognized.Invoke(result.GestureClass);
+                gestureOutput(result.GestureClass);
             }
         }
     }
