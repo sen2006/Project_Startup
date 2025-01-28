@@ -161,6 +161,7 @@ public class MovementRecognizer : MonoBehaviour
 
             string fileName = persistantGestureFilePath + "/" + (creationIsLetter ? "letters/" : "other/") + newGesture.Name + ".xml";
             GestureIO.WriteGesture(pointArray, newGestureName, fileName);
+            Debug.Log("saved as: " + fileName);
         }
         // recognize gesture
         else
