@@ -4,6 +4,7 @@ using PDollarGestureRecognizer;
 using System.IO;
 using UnityEngine.Events;
 using System;
+using System.Linq;
 
 public class MovementRecognizer : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class MovementRecognizer : MonoBehaviour
     /// for example "a" and the next will be "a2"
     /// </summary>
     [SerializeField] string newGestureName = "";
+    
+    [SerializeField] GameObject gestureDisplayParent;
 
 
     public delegate void GestureOutput(string gesture);
@@ -141,7 +144,8 @@ public class MovementRecognizer : MonoBehaviour
         gestureIsBusy = false;
 
         Point[] pointArray = new Point[gesturePositions.Count];
-
+        float totalDist = 0;
+        int lenthCount = 0;
         // read all positions from the position list to a point array
         // converts from 3d space to 2d screenspace
         for (int i = 0; i < pointArray.Length; i++)
@@ -149,7 +153,28 @@ public class MovementRecognizer : MonoBehaviour
             Vector3 position = gesturePositions[i].Item1;
             Vector2 screenPosition = Camera.main.WorldToScreenPoint(new Vector3(position.x, position.y, position.z));
             pointArray[i] = new Point(screenPosition.x, screenPosition.y, gesturePositions[i].Item2);
+
+            
+            if (i > 0)
+            {
+                if (gesturePositions[i - 1].Item2 == gesturePositions[i].Item2)
+                {
+                    totalDist += (position - gesturePositions[i - 1].Item1).magnitude;
+                    lenthCount++;
+                }
+            }
+            if (gestureDisplayParent != null)
+            {
+                foreach (Transform child in gestureDisplayParent.transform)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
         }
+
+        float avarageDist = totalDist / lenthCount;
+
+        Debug.Log("total Point Count: "+gesturePositions.Count+", strokes: "+gesturePositions.Last().Item2+", avarage DistanceBetween Points: "+avarageDist);
 
         Gesture newGesture = new Gesture(pointArray);
 
@@ -220,7 +245,8 @@ public class MovementRecognizer : MonoBehaviour
                     positionList.Add(movementSource.position);
                     if (drawObject != null)
                     {
-                        Destroy(Instantiate(drawObject, movementSource.position, Quaternion.identity), 10);
+                        GameObject displayObject = Instantiate(drawObject, movementSource.position, Quaternion.identity);
+                        displayObject.transform.SetParent(gestureDisplayParent.transform);
                     }
                 }
             }
@@ -229,7 +255,9 @@ public class MovementRecognizer : MonoBehaviour
                 positionList.Add(movementSource.position);
                 if (drawObject != null)
                 {
-                    Destroy(Instantiate(drawObject, movementSource.position, Quaternion.identity), 10);
+                    GameObject displayObject = Instantiate(drawObject, movementSource.position, Quaternion.identity);
+                    displayObject.transform.SetParent(gestureDisplayParent.transform);
+
                 }
             }
         }

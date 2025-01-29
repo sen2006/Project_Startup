@@ -23,7 +23,10 @@ public class GameObjectMovement
     public GameObject targetObject;
     public Vector3 targetPosition;
     public float duration;
-    public int dialogueIndex = -1; // Ties movement to specific dialogue entry, -1 means it is unused
+    /// <summary>
+    /// Ties movement to specific dialogue entry, -1 means it is unused
+    /// </summary>
+    public int dialogueIndex = -1; 
 }
 
 public class DialogueManager : MonoBehaviour
