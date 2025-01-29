@@ -22,6 +22,8 @@ public class MovementRecognizer : MonoBehaviour
     /// for example "a" and the next will be "a2"
     /// </summary>
     [SerializeField] string newGestureName = "";
+    
+    [SerializeField] GameObject gestureDisplayParent;
 
 
     public delegate void GestureOutput(string gesture);
@@ -161,6 +163,13 @@ public class MovementRecognizer : MonoBehaviour
                     lenthCount++;
                 }
             }
+            if (gestureDisplayParent != null)
+            {
+                foreach (Transform child in gestureDisplayParent.transform)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
         }
 
         float avarageDist = totalDist / lenthCount;
@@ -236,7 +245,8 @@ public class MovementRecognizer : MonoBehaviour
                     positionList.Add(movementSource.position);
                     if (drawObject != null)
                     {
-                        Destroy(Instantiate(drawObject, movementSource.position, Quaternion.identity), 10);
+                        GameObject displayObject = Instantiate(drawObject, movementSource.position, Quaternion.identity);
+                        displayObject.transform.SetParent(gestureDisplayParent.transform);
                     }
                 }
             }
@@ -245,7 +255,9 @@ public class MovementRecognizer : MonoBehaviour
                 positionList.Add(movementSource.position);
                 if (drawObject != null)
                 {
-                    Destroy(Instantiate(drawObject, movementSource.position, Quaternion.identity), 10);
+                    GameObject displayObject = Instantiate(drawObject, movementSource.position, Quaternion.identity);
+                    displayObject.transform.SetParent(gestureDisplayParent.transform);
+
                 }
             }
         }
