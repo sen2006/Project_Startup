@@ -6,6 +6,7 @@ public class FireBall : MonoBehaviour
 {
     public delegate void HitEvent(bool correctAnswer);
     public event HitEvent hitEvent;
+    public bool despawndOtherOnHit = true;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -32,8 +33,11 @@ public class FireBall : MonoBehaviour
 
     private void DestroyObjects(GameObject other)
     {
-        Destroy(other);
         Destroy(gameObject);
+        if (despawndOtherOnHit)
+        {
+            Destroy(other);
+        }
     }
 
 }
