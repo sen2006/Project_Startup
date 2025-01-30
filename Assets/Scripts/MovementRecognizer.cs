@@ -173,7 +173,6 @@ public class MovementRecognizer : MonoBehaviour
         }
 
         float avarageDist = totalDist / lenthCount;
-
         Debug.Log("total Point Count: "+gesturePositions.Count+", strokes: "+gesturePositions.Last().Item2+", avarage DistanceBetween Points: "+avarageDist);
 
         Gesture newGesture = new Gesture(pointArray);
