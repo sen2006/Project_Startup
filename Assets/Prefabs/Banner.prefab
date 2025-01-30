@@ -60,9 +60,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6947310500412109477, guid: 88f74fceea0b2d04e9253a2452acd85c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -3215752362015475645, guid: 88f74fceea0b2d04e9253a2452acd85c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -2452175794534194448, guid: 88f74fceea0b2d04e9253a2452acd85c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 88f74fceea0b2d04e9253a2452acd85c, type: 3}
       propertyPath: m_Name
       value: Banner
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 88f74fceea0b2d04e9253a2452acd85c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 1112186713689628849, guid: 88f74fceea0b2d04e9253a2452acd85c, type: 3}
       propertyPath: m_Materials.Array.data[0]
