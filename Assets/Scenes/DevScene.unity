@@ -1288,12 +1288,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questions:
     entries:
-    - key: Test
-      value: A
-    - key: Test 2
-      value: B
-    - key: Test 3
-      value: C
+    - key: Banana
+      value: Banaan
+    - key: Pear
+      value: peer
   currentAnswer: 
   givenAnswerDisplay: {fileID: 2067176191}
   questionDisplay: {fileID: 386753074}
